@@ -165,6 +165,7 @@ pub(super) static DATETIME_Y_M_D_Z: &[&str] = &[
     "%Y-%m-%d %H:%M:%S.%6f%#z",
     "%Y-%m-%d %H:%M:%S.%3f%#z",
     "%Y-%m-%d %H:%M:%S%#z",
+    "%Y-%m-%d %H:%M:%S %#z",
     "%Y-%m-%d %H%M%S.%9f%#z",
     "%Y-%m-%d %H%M%S.%6f%#z",
     "%Y-%m-%d %H%M%S.%3f%#z",
