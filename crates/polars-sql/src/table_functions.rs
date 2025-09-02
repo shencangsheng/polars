@@ -110,7 +110,6 @@ impl PolarsTableFunctions {
         let lf = LazyCsvReader::new(path.clone())
             .with_try_parse_dates(true)
             .with_missing_is_null(true)
-            .with_truncate_ragged_lines(true)
             .with_separator(b'\t')
             .finish()?;
         Ok((path, lf))
