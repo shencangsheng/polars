@@ -108,13 +108,10 @@ impl PolarsTableFunctions {
         use polars_lazy::frame::LazyFileListReader;
         let path = self.get_file_path_from_arg(&args[0])?;
         let lf = LazyCsvReader::new(path.clone())
-            .map_parse_options(|options| {
-                options
-                    .with_separator(b'\t')
-                    .with_truncate_ragged_lines(true)
-            })
             .with_try_parse_dates(true)
             .with_missing_is_null(true)
+            .with_truncate_ragged_lines(true)
+            .with_separator(b'\t')
             .finish()?;
         Ok((path, lf))
     }
