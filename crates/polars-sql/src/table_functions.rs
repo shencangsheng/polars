@@ -112,7 +112,6 @@ impl PolarsTableFunctions {
             .with_missing_is_null(true)
             .with_separator(b'\t')
             .with_quote_char(None)
-            .with_ignore_errors(true)
             .finish()?;
         Ok((path, lf))
     }
