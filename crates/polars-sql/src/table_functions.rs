@@ -43,12 +43,6 @@ pub(crate) enum PolarsTableFunctions {
     ReadJson,
     /// SQL 'read_xlsx' function.
     /// ```sql
-    /// SELECT * FROM read_csv('path/to/file.xlsx')
-    /// ```
-    #[cfg(feature = "excel")]
-    ReadXlsx,
-    /// SQL 'read_xlsx' function.
-    /// ```sql
     /// SELECT * FROM read_csv('path/to/file.tsv')
     /// ```
     #[cfg(feature = "csv")]
@@ -150,19 +144,6 @@ impl PolarsTableFunctions {
         Ok((path, lf))
     }
 
-    #[cfg(feature = "excel")]
-    fn read_xlsx(&self, args: &[FunctionArg]) -> PolarsResult<(PlPath, LazyFrame)> {
-        polars_ensure!(args.len() == 1, SQLSyntax: "`read_xlsx` expects a single file path; found {:?} arguments", args.len());
-
-        use polars_lazy::frame::LazyFileListReader;
-        let path = self.get_file_path_from_arg(&args[0])?;
-        let lf = LazyCsvReader::new(path.clone())
-            .with_try_parse_dates(true)
-            .with_missing_is_null(true)
-            .finish()?;
-        Ok((path, lf))
-    }
-
     #[allow(dead_code)]
     fn get_file_path_from_arg(&self, arg: &FunctionArg) -> PolarsResult<PlPath> {
         use sqlparser::ast::{Expr as SQLExpr, Value as SQLValue};
@@ -192,8 +173,6 @@ impl PolarsTableFunctions {
             "read_ipc",
             #[cfg(feature = "json")]
             "read_json",
-            #[cfg(feature = "excel")]
-            "read_xlsx",
         ]
     }
 }
