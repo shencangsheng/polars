@@ -111,6 +111,7 @@ impl PolarsTableFunctions {
             .with_try_parse_dates(true)
             .with_missing_is_null(true)
             .with_separator(b'\t')
+            .with_infer_schema_length(Some(0))
             .with_quote_char(None)
             .finish()?;
         Ok((path, lf))
